@@ -33,7 +33,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,17 +45,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImageSerivce.cs">
+    <Compile Include="ImageService.Infrastructure\Enums\CommandEnum.cs" />
+    <Compile Include="ImageService.Logging\ILoggingService.cs" />
+    <Compile Include="ImageService.Logging\LoggingService.cs" />
+    <Compile Include="ImageService.Logging\Modal\MessageRecievedEventArgs.cs" />
+    <Compile Include="ImageService.Logging\Modal\MessageTypeEnum.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\NewFileCommand.cs" />
+    <Compile Include="Controller\Handlers\DirectoyHandler.cs" />
+    <Compile Include="Controller\Handlers\IDirectoryHandler.cs" />
+    <Compile Include="Controller\IImageController.cs" />
+    <Compile Include="Controller\ImageController.cs" />
+    <Compile Include="ImageService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ImageSerivce.Designer.cs">
-      <DependentUpon>ImageSerivce.cs</DependentUpon>
+    <Compile Include="Modal\Event\CommandRecievedEventArgs.cs" />
+    <Compile Include="Modal\Event\DirectoryCloseEventArgs.cs" />
+    <Compile Include="Modal\IImageServiceModal.cs" />
+    <Compile Include="Modal\ImageServiceModal.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Server\ImageServer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".vs\ProjectSettings.json" />
+    <None Include=".vs\slnx.sqlite" />
+    <None Include=".vs\VSWorkspaceState.json" />
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".vs\ImageService\v15\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ImageService.resx">
+      <DependentUpon>ImageService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
