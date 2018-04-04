@@ -9,22 +9,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Configuration;
+
 namespace ImageService.Server
 {
     public class ImageServer
     {
+        #region Members
+        private IImageController m_controller;
+        private ILoggingService m_logging;
+        #endregion
 
-        private LoggingService logService;
-        private DirectoyHandler dirHandler;
-
-        
-        public ImageServer()
+        #region Properties
+        public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
+        #endregion
+        public ImageServer(IImageController controller,ILoggingService logging)
         {
-
-        }
-        public void createHandler()
-        {
-
+            this.m_controller = controller;
+            this.m_logging = logging;
         }
        
     }
