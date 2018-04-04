@@ -13,15 +13,19 @@ namespace ImageService.Server
 {
     public class ImageServer
     {
-        #region Members
-        private IImageController m_controller;
-        private ILoggingService m_logging;
-        #endregion
 
-        #region Properties
-        public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
-        #endregion
+        private LoggingService logService;
+        private DirectoyHandler dirHandler;
 
+        
+        public ImageServer()
+        {
+
+        }
+        public void createHandler()
+        {
+
+        }
        
     }
 }

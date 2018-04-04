@@ -21,9 +21,28 @@ namespace ImageService.Controller.Handlers
         private FileSystemWatcher m_dirWatcher;             // The Watcher of the Dir
         private string m_path;                              // The Path of directory
         #endregion
+        private LoggingService this_logging;
+        private ImageController this_controller;
 
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;              // The Event That Notifies that the Directory is being closed
+        
+        public DirectoyHandler()
+        {
 
-		// Implement Here!
+        }
+
+        // The Function Recieves the directory to Handle
+        public void StartHandleDirectory(string dirPath)
+        {
+
+
+        }
+        // The Event that will be activated upon new Command
+        public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
+        {
+
+
+        }
+
     }
 }
