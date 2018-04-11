@@ -33,7 +33,7 @@ namespace ImageService.Server
             foreach(string path in paths)
             {
                 // handler creation
-                IDirectoryHandler directoryHandler = new DirectoyHandler(this.m_logging, this.m_controller);
+                IDirectoryHandler directoryHandler = new DirectoyHandler(this.m_logging, this.m_controller, path);
                 CommandRecieved += directoryHandler.OnCommandRecieved;
                 directoryHandler.StartHandleDirectory(path);
                 this.m_logging.Log("Create handler for path - " + path,Logging.Modal.MessageTypeEnum.INFO);
