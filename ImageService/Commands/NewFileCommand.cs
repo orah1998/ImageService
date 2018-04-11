@@ -30,7 +30,7 @@ namespace ImageService.Commands
             }
             catch(Exception e)
             {
-                result = false;
+                result = false; 
                 return e.ToString();
             }
         }

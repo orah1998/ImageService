@@ -73,6 +73,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\ImageServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".vs\ProjectSettings.json" />
@@ -82,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".vs\ImageService\v15\" />
-    <Folder Include="Server\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ImageService.resx">
