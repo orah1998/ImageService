@@ -47,6 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\Handlers\DirectoyHandler.cs" />
+    <Compile Include="Controller\Handlers\IDirectoryHandler.cs" />
+    <Compile Include="ImageService.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ImageService.Infrastructure\Enums\CommandEnum.cs" />
     <Compile Include="ImageService.Logging\ILoggingService.cs" />
     <Compile Include="ImageService.Logging\LoggingService.cs" />
@@ -54,13 +59,8 @@
     <Compile Include="ImageService.Logging\Modal\MessageTypeEnum.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\NewFileCommand.cs" />
-    <Compile Include="Controller\Handlers\DirectoyHandler.cs" />
-    <Compile Include="Controller\Handlers\IDirectoryHandler.cs" />
     <Compile Include="Controller\IImageController.cs" />
     <Compile Include="Controller\ImageController.cs" />
-    <Compile Include="ImageService.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Modal\Event\CommandRecievedEventArgs.cs" />
     <Compile Include="Modal\Event\DirectoryCloseEventArgs.cs" />
     <Compile Include="Modal\IImageServiceModal.cs" />
@@ -71,7 +71,6 @@
     <Compile Include="ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
-    <Compile Include="Server\ImageServer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -83,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".vs\ImageService\v15\" />
+    <Folder Include="Server\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ImageService.resx">

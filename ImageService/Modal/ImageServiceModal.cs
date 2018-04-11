@@ -19,17 +19,16 @@ namespace ImageService.Modal
 
 
 
-        public string outputFolder
+        public void outputFolderSet(string value)
         {
-            get
-            {
-                return this.m_OutputFolder;
-            }
-            set
-            {
                 this.m_OutputFolder = value;
-            }
         }
+
+        public string outputFolderGet()
+        {
+               return this.m_OutputFolder;
+        }
+        
 
       
         public int thumbnailSize
@@ -48,99 +47,77 @@ namespace ImageService.Modal
 
         public string AddFile(string path, out bool result)
         {
+            string answer="";
             string year;
             string month;
             try
             {
+                //if the file doesnt exist we want to throw a new exception
+                if (!File.Exists(path))
+                {
+                    throw new Exception("file does not exist !!!");
+                }
+
+
                 DateTime dt = File.GetCreationTime(path);
                 year=dt.Year.ToString();
                 month= dt.Month.ToString();
                 DirectoryInfo outputFold = Directory.CreateDirectory(m_OutputFolder);
                 
-                if(createByYearAndMonth(year, month) != false)
+                if(createByYearAndMonth(m_OutputFolder,year, month) != false)
                 {
                     string destPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" +Path.GetFileName(path);
                     File.Move(path, destPath);
+                    result = true;
+                    answer+="copy item to destination folder. ";
+
+                    string destPathThumb = m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" + month + "\\" + Path.GetFileName(path);
+
+                    createByYearAndMonth(m_OutputFolder + "\\" + "Thumbnails", year, month);
+
+
+                    if (File.Exists(destPathThumb))
+                    {
+                        destPathThumb = PathForSameName(m_OutputFolder + "\\" + year + "\\" +month,
+                            m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" + month);
+                    }
+
+                    Image thumbnail = Image.FromFile(destPath);
+                    thumbnail = (Image)(new Bitmap(thumbnail, new Size(this.m_thumbnailSize, this.m_thumbnailSize)));
+                    thumbnail.Save(destPathThumb);
+                    answer += " thumbnail added as well." + Path.GetFileName(path);
+                    result = true;
+                    return answer;
 
                 }
                 else
                 {
                     throw new Exception("EORROR: cant create folders");
                 }
-
-
-
+                
             }
             catch(Exception e)
             {
                 result = false; 
                 return e.ToString();
             }
-
-
-
-
-
-
-
+            
 
         }
+       
 
 
-
-
-        //    string year;
-        //    string month;
-        //    try { 
-        //    //checking if we got a valid path
-        //    if (File.Exists(path))
-        //    {
-        //        //getting the date of the file(its creation)
-        //        DateTime dt = File.GetCreationTime(path);
-        //        //year and month holding the dates of the pictures
-        //        year = dt.Year.ToString();
-        //        month = dt.Month.ToString();
-        //        //getting to the destination folder
-        //        DirectoryInfo output = Directory.CreateDirectory(m_OutputFolder);
-        //        //creating subdirectory for the thumbnails OR getting the path if it was already created
-        //        Directory.CreateDirectory(m_OutputFolder + "\\" + "Thumbnails");
-        //        //hiding the Output Folder
-        //        output.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-        //        bool outputfold = CreateDateFolders(m_OutputFolder, year, month);
-        //            //creating the folders with thumbnails folder before date folders
-        //        bool thumbnailfold = CreateDateFolders(m_OutputFolder + "\\" + "Thumbnails", year, month);
-        //        // if both regular folders and thumbnail folders were not created corrently :
-        //        if((outputfold & thumbnailfold) != true)
-        //        {
-        //            throw new Exception("Error : folders could not be created");
-        //        }
-
-
-        //        string funcResult = "";
-
-        //        string targetFold = m_OutputFolder + "\\" + year + "\\" + month + "\\";
-        //        string FileNewPath=targetFold+"\\"+
-
-
-
-
-
-
-        //}
-
-
-
-        public bool createByYearAndMonth(string year,string month)
+        public bool createByYearAndMonth(string outputFold,string year,string month)
         {
             try { 
-            DirectoryInfo output = Directory.CreateDirectory(m_OutputFolder+"\\"+year);
+            DirectoryInfo output = Directory.CreateDirectory(outputFold + "\\"+year);
             }catch(Exception e1) {
                 return false;
             }
 
             try
             {
-                DirectoryInfo output = Directory.CreateDirectory(m_OutputFolder + "\\" + year+"\\"+month);
+                DirectoryInfo output = Directory.CreateDirectory(outputFold + "\\" + year+"\\"+month);
             }
             catch (Exception e1)
             {
@@ -149,6 +126,25 @@ namespace ImageService.Modal
 
             return true;
         }
+
+
+        public string PathForSameName(string path,string outputFold)
+        {
+            int counter = 0;
+            //if a file with the same name already exists in the destination folder
+
+                string ans= outputFold + "\\" + Path.GetFileNameWithoutExtension(path) + "(" + counter.ToString() + ")" + Path.GetExtension(path);
+
+
+                while(File.Exists(outputFold + "\\" + Path.GetFileNameWithoutExtension(path)+"("+counter.ToString()+")"+Path.GetExtension(path))  )
+                {
+                    counter++;
+                    ans=outputFold + "\\" + Path.GetFileNameWithoutExtension(path) + "(" + counter.ToString() + ")" + Path.GetExtension(path);
+                }
+
+                return ans;
+        }
+
 
 
 
