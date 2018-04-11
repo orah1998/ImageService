@@ -43,6 +43,9 @@ namespace ImageService.Controller.Handlers
 
 
         }
+        public void Activate()
+        {
 
+        }
     }
 }
