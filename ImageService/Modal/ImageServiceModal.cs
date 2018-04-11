@@ -50,84 +50,108 @@ namespace ImageService.Modal
         {
             string year;
             string month;
-            try { 
-            //checking if we got a valid path
-            if (File.Exists(path))
+            try
             {
-                //getting the date of the file(its creation)
                 DateTime dt = File.GetCreationTime(path);
-                year = dt.Year.ToString();
-                month = dt.Month.ToString();
-                //getting to the given folder
-                DirectoryInfo output = Directory.CreateDirectory(m_OutputFolder);
-                //creating subdirectory for the thumbnails
-                Directory.CreateDirectory(m_OutputFolder + "\\" + "Thumbnails");
-                //hiding the Output Folder
-                output.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                bool outputfold = CreateDateFolders(m_OutputFolder, year, month);
-                bool thumbnailfold = CreateDateFolders(m_OutputFolder + "\\" + "Thumbnails", year, month);
-                if((outputfold & thumbnailfold) != true)
+                year=dt.Year.ToString();
+                month= dt.Month.ToString();
+                DirectoryInfo outputFold = Directory.CreateDirectory(m_OutputFolder);
+                
+                if(createByYearAndMonth(year, month) != false)
                 {
-                    throw new Exception("Error : folders could not be created");
-                }
-
-
-                    string funcResult = "";
-
-                    string targetFold = m_OutputFolder + "\\" + year + "\\" + month + "\\";
-                    //checking if we already added the file to out directory
-                    if (File.Exists(targetFold + Path.GetFileName(path))==false)
-                    {
-                        //if not , we will copy it to out directory
-                        File.Copy(path, targetFold + Path.GetFileName(path));
-                        funcResult+="Added " + Path.GetFileName(path) + " to " + targetFold;
-                    }
-
-                    // creating the thumbnail photo
-                    if (File.Exists((m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" + month + "\\" + Path.GetFileName(path)))==false)
-                    {
-                        Image thumb = Image.FromFile(path);
-                        thumb = (Image)(new Bitmap(thumb, new Size(this.m_thumbnailSize, this.m_thumbnailSize)));
-                        thumb.Save(m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" + month + "\\" + Path.GetFileName(path));
-                        funcResult+= " and added thumb " + Path.GetFileName(path);
-                    }
-                    result = true;
-                    return funcResult;
-
-
-
-
-
+                    string destPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" +Path.GetFileName(path);
+                    File.Move(path, destPath);
 
                 }
                 else
                 {
-                    throw new Exception("file does not exist");
-                } 
+                    throw new Exception("EORROR: cant create folders");
+                }
 
 
-            } catch(Exception e)
+
+            }
+            catch(Exception e)
             {
-                result=false;
+                result = false; 
                 return e.ToString();
             }
+
+
+
+
+
+
+
+
         }
 
 
 
 
-        private bool CreateDateFolders(string path, string year, string month)
+        //    string year;
+        //    string month;
+        //    try { 
+        //    //checking if we got a valid path
+        //    if (File.Exists(path))
+        //    {
+        //        //getting the date of the file(its creation)
+        //        DateTime dt = File.GetCreationTime(path);
+        //        //year and month holding the dates of the pictures
+        //        year = dt.Year.ToString();
+        //        month = dt.Month.ToString();
+        //        //getting to the destination folder
+        //        DirectoryInfo output = Directory.CreateDirectory(m_OutputFolder);
+        //        //creating subdirectory for the thumbnails OR getting the path if it was already created
+        //        Directory.CreateDirectory(m_OutputFolder + "\\" + "Thumbnails");
+        //        //hiding the Output Folder
+        //        output.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+        //        bool outputfold = CreateDateFolders(m_OutputFolder, year, month);
+        //            //creating the folders with thumbnails folder before date folders
+        //        bool thumbnailfold = CreateDateFolders(m_OutputFolder + "\\" + "Thumbnails", year, month);
+        //        // if both regular folders and thumbnail folders were not created corrently :
+        //        if((outputfold & thumbnailfold) != true)
+        //        {
+        //            throw new Exception("Error : folders could not be created");
+        //        }
+
+
+        //        string funcResult = "";
+
+        //        string targetFold = m_OutputFolder + "\\" + year + "\\" + month + "\\";
+        //        string FileNewPath=targetFold+"\\"+
+
+
+
+
+
+
+        //}
+
+
+
+        public bool createByYearAndMonth(string year,string month)
         {
+            try { 
+            DirectoryInfo output = Directory.CreateDirectory(m_OutputFolder+"\\"+year);
+            }catch(Exception e1) {
+                return false;
+            }
+
             try
             {
-                Directory.CreateDirectory(path + "\\" + year + "\\" + month);
-                return true;
+                DirectoryInfo output = Directory.CreateDirectory(m_OutputFolder + "\\" + year+"\\"+month);
             }
-            catch (Exception e)
+            catch (Exception e1)
             {
                 return false;
             }
+
+            return true;
         }
+
+
+
 
     }
 }
