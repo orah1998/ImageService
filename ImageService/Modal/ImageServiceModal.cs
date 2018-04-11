@@ -133,8 +133,8 @@ namespace ImageService.Modal
             int counter = 0;
             //if a file with the same name already exists in the destination folder
 
-                string ans= outputFold + "\\" + Path.GetFileNameWithoutExtension(path) + "(" + counter.ToString() + ")" + Path.GetExtension(path);
-
+                string ans="";
+            counter++;
 
                 while(File.Exists(outputFold + "\\" + Path.GetFileNameWithoutExtension(path)+"("+counter.ToString()+")"+Path.GetExtension(path))  )
                 {
