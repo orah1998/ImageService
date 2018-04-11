@@ -27,7 +27,14 @@ namespace ImageService.Server
         {
             this.m_controller = controller;
             this.m_logging = logging;
+
+            string[] paths = ConfigurationManager.AppSettings.Get("Handler").Split(';');
+            foreach(string path in paths)
+            {
+                IDirectoryHandler directoryHandler = new DirectoyHandler(this.m_controller, this.m_logging);
+
+            }
         }
-       
+
     }
 }
