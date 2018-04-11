@@ -31,8 +31,8 @@ namespace ImageService.Server
             string[] paths = ConfigurationManager.AppSettings.Get("Handler").Split(';');
             foreach(string path in paths)
             {
-                IDirectoryHandler directoryHandler = new DirectoyHandler(this.m_controller, this.m_logging);
-
+                IDirectoryHandler directoryHandler = new DirectoyHandler(this.m_logging, this.m_controller);
+                
             }
         }
 
