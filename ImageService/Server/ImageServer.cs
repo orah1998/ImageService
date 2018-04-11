@@ -40,5 +40,14 @@ namespace ImageService.Server
             }
         
         }
+
+
+        public void OnCloseServer()
+        {
+
+        }
+
+
+
     }
 }

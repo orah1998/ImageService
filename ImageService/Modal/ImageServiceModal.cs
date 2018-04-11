@@ -19,18 +19,20 @@ namespace ImageService.Modal
 
 
 
-        public void outputFolderSet(string value)
+        public string OutputFolder
         {
+            get
+            {
+                return this.m_OutputFolder;
+            }
+            set
+            {
                 this.m_OutputFolder = value;
+            }
         }
 
-        public string outputFolderGet()
-        {
-               return this.m_OutputFolder;
-        }
-        
 
-      
+
         public int thumbnailSize
         {
             get
