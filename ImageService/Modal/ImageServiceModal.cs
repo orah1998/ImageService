@@ -70,7 +70,11 @@ namespace ImageService.Modal
                 if (createByYearAndMonth(m_OutputFolder,year, month) != false)
                 {
                     string destPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" +Path.GetFileName(path);
-                    File.Move(path, destPath);
+                    if (File.Exists(destPath))
+                    {
+                        destPath = PathForSameName(path,destPath);
+                    }
+                        File.Move(path, destPath);
                     result = true;
                     answer+="copy item to destination folder. ";
 

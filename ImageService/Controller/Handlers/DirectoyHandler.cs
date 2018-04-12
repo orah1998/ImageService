@@ -41,7 +41,9 @@ namespace ImageService.Controller.Handlers
         {
             m_logging.Log("now using StartHandleDirectory function" + " " + dirPath, MessageTypeEnum.INFO);
             this.m_dirWatcher.Created += new FileSystemEventHandler(watchCreated);
-            this.m_dirWatcher.Changed += new FileSystemEventHandler(watchModified);
+            this.m_dirWatcher.Changed += new FileSystemEventHandler(watchCreated);
+            this.m_dirWatcher.Renamed += new RenamedEventHandler(watchCreated) ;
+            
             //start listen to directory
             this.m_dirWatcher.EnableRaisingEvents = true;
             this.m_logging.Log("Starting to handle directory: " + dirPath, MessageTypeEnum.INFO);
@@ -49,8 +51,10 @@ namespace ImageService.Controller.Handlers
 
         }
 
-
-
+        private void M_dirWatcher_Renamed(object sender, RenamedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         public void watchModified(object sender, FileSystemEventArgs e)
         {
@@ -66,13 +70,6 @@ namespace ImageService.Controller.Handlers
 
             }
         }
-
-
-
-
-
-
-
 
 
 
