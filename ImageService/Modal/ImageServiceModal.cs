@@ -65,8 +65,9 @@ namespace ImageService.Modal
                 year=dt.Year.ToString();
                 month= dt.Month.ToString();
                 DirectoryInfo outputFold = Directory.CreateDirectory(m_OutputFolder);
-                
-                if(createByYearAndMonth(m_OutputFolder,year, month) != false)
+                outputFold.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+
+                if (createByYearAndMonth(m_OutputFolder,year, month) != false)
                 {
                     string destPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" +Path.GetFileName(path);
                     File.Move(path, destPath);

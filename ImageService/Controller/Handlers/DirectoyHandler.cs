@@ -41,13 +41,40 @@ namespace ImageService.Controller.Handlers
         {
             m_logging.Log("now using StartHandleDirectory function" + " " + dirPath, MessageTypeEnum.INFO);
             this.m_dirWatcher.Created += new FileSystemEventHandler(watchCreated);
-            this.m_dirWatcher.Changed += new FileSystemEventHandler(watchCreated);
+            this.m_dirWatcher.Changed += new FileSystemEventHandler(watchModified);
             //start listen to directory
             this.m_dirWatcher.EnableRaisingEvents = true;
             this.m_logging.Log("Starting to handle directory: " + dirPath, MessageTypeEnum.INFO);
 
 
         }
+
+
+
+
+        public void watchModified(object sender, FileSystemEventArgs e)
+        {
+            string[] files;
+            this.m_logging.Log("Entered watchModified looking at file: " + e.FullPath, MessageTypeEnum.INFO);
+            string extension = Path.GetExtension(e.FullPath);
+
+            if (this.endings.Contains(extension))
+            {
+                string[] args = { e.FullPath };
+                CommandRecievedEventArgs commandRecievedEventArgs = new CommandRecievedEventArgs((int)CommandEnum.NewFileCommand, args, "");
+                this.OnCommandRecieved(this, commandRecievedEventArgs);
+
+            }
+        }
+
+
+
+
+
+
+
+
+
 
 
         public void watchCreated(object sender, FileSystemEventArgs e)
