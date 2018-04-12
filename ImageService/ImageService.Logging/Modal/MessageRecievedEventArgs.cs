@@ -11,7 +11,11 @@ namespace ImageService.Logging.Modal
         private MessageTypeEnum msg_status;
         private string msg;
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="message"></param>
         public MessageRecievedEventArgs(MessageTypeEnum status, string message)
         {
             this.msg_status = status;

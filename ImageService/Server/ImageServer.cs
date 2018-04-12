@@ -13,6 +13,7 @@ using System.Configuration;
 
 namespace ImageService.Server
 {
+
     public class ImageServer
     {
         #region Members
@@ -22,13 +23,19 @@ namespace ImageService.Server
 
         #region Properties
         public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
+        #endregion
 
-            #endregion
+        /// <summary>
+        /// ImageServer is the server that in sharge on all the Handlers.
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <param name="logging"></param>
         public ImageServer(IImageController controller,ILoggingService logging)
         {
+            // intilaize Server's controller and logger.
             this.m_controller = controller;
             this.m_logging = logging;
-
+            // get all directories path
             string[] paths = ConfigurationManager.AppSettings.Get("Handler").Split(';');
             foreach(string path in paths)
             {
@@ -41,7 +48,9 @@ namespace ImageService.Server
         
         }
 
-
+        /// <summary>
+        ///  waht happend when Server close.
+        /// </summary>
         public void OnCloseServer()
         {
 

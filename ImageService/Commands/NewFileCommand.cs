@@ -11,12 +11,20 @@ namespace ImageService.Commands
     public class NewFileCommand : ICommand
     {
         private IImageServiceModal m_modal;
-
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="modal"></param>
         public NewFileCommand(IImageServiceModal modal)
         {
             m_modal = modal;            // Storing the Modal
         }
-
+        /// <summary>
+        /// Execute to the command
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="result">if worked</param>
+        /// <returns></returns>
         public string Execute(string[] args, out bool result)
         {
             try
