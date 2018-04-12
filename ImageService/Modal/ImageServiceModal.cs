@@ -75,7 +75,7 @@ namespace ImageService.Modal
                         destPath = PathForSameName(path,destPath);
                     }
                         File.Move(path, destPath);
-                    result = true;
+                    result = true; 
                     answer+="copy item to destination folder. ";
 
                     string destPathThumb = m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" + month + "\\" + Path.GetFileName(path);
