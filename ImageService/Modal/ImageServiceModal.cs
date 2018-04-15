@@ -46,7 +46,14 @@ namespace ImageService.Modal
         }
 
 
-
+        /// <summary>
+        /// this function adds a file to our desntination folder
+        /// </summary>
+        /// <param name="path"></param>
+        /// the path of the file thats needs to be added
+        /// <param name="result"></param>
+        /// in result, we will return true if the function was successful and false if it was not.
+        /// <returns></returns>
         public string AddFile(string path, out bool result)
         {
             string answer="";
@@ -60,13 +67,15 @@ namespace ImageService.Modal
                     throw new Exception("file does not exist !!!");
                 }
 
-
+                //getting the date of the creation time of the file that needs to be moved to our dest folder
                 DateTime dt = File.GetCreationTime(path);
                 year=dt.Year.ToString();
                 month= dt.Month.ToString();
+                //getting to the dest folder and making it hidden
                 DirectoryInfo outputFold = Directory.CreateDirectory(m_OutputFolder);
                 outputFold.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
 
+                // if we could not create year and month folder according to the file's creation
                 if (createByYearAndMonth(m_OutputFolder,year, month) != false)
                 {
                     string destPath = m_OutputFolder + "\\" + year + "\\" + month + "\\" +Path.GetFileName(path);
@@ -78,8 +87,9 @@ namespace ImageService.Modal
                     result = true; 
                     answer+="copy item to destination folder. ";
 
+                    //path to the thumbnail folder
                     string destPathThumb = m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" + month + "\\" + Path.GetFileName(path);
-
+                    //creating thumbnail folders
                     createByYearAndMonth(m_OutputFolder + "\\" + "Thumbnails", year, month);
 
 
@@ -88,7 +98,7 @@ namespace ImageService.Modal
                         destPathThumb = PathForSameName(m_OutputFolder + "\\" + year + "\\" +month,
                             m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" + month);
                     }
-
+                    //creating the thumbnail photo.
                     Image thumbnail = Image.FromFile(destPath);
                     thumbnail = (Image)(new Bitmap(thumbnail, new Size(this.m_thumbnailSize, this.m_thumbnailSize)));
                     thumbnail.Save(destPathThumb);
@@ -113,7 +123,13 @@ namespace ImageService.Modal
         }
        
 
-
+        /// <summary>
+        /// we will use this function to create the required folders for the dates of the file to be moved
+        /// </summary>
+        /// <param name="outputFold"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
         public bool createByYearAndMonth(string outputFold,string year,string month)
         {
             try { 
@@ -134,7 +150,12 @@ namespace ImageService.Modal
             return true;
         }
 
-
+        /// <summary>
+        /// this function will rename a file that needs to be moved and has the same name as another file which is already in the dest folder
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="outputFold"></param>
+        /// <returns></returns>
         public string PathForSameName(string path,string outputFold)
         {
             int counter = 0;
