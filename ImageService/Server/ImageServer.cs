@@ -55,7 +55,14 @@ namespace ImageService.Server
         /// </summary>
         public void OnCloseServer()
         {
-
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            {
+                this.m_logging.Log("Close Server ERROR", Logging.Modal.MessageTypeEnum.FAIL);
+            }
         }
 
 
