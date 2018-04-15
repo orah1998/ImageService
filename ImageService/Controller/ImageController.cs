@@ -10,8 +10,12 @@ using System.Threading.Tasks;
 
 namespace ImageService.Controller
 {
+    /// <summary>
+    /// controller
+    /// </summary>
     public class ImageController : IImageController
     {
+
         private IImageServiceModal m_modal;                      // The Modal Object
         private Dictionary<int, ICommand> commands;
         /// <summary>

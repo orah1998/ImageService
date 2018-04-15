@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ImageService.Infrastructure.Enums
 {
+    /// <summary>
+    /// what command we use
+    /// </summary>
     public enum CommandEnum : int
     {
         NewFileCommand = 0,

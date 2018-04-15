@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ImageService.Logging.Modal
 {
+    /// <summary>
+    /// kind of message
+    /// </summary>
     public enum MessageTypeEnum : int
     {
         INFO,

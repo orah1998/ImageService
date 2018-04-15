@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ImageService.Logging
 {
+    /// <summary>
+    /// service of logging interface
+    /// </summary>
     public interface ILoggingService
     {
         event EventHandler<MessageRecievedEventArgs> MessageRecieved;

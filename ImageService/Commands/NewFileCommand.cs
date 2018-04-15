@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ImageService.Commands
 {
+    /// <summary>
+    /// command of new file
+    /// </summary>
     public class NewFileCommand : ICommand
     {
         private IImageServiceModal m_modal;
@@ -30,6 +33,7 @@ namespace ImageService.Commands
             try
             {
                 String ret = m_modal.AddFile(args[0], out result);
+                // when execue go worng, we get false result
                 if (!result)
                 {
                     throw new Exception("ERROR at exectue");

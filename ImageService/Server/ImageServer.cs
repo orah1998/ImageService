@@ -13,7 +13,9 @@ using System.Configuration;
 
 namespace ImageService.Server
 {
-
+    /// <summary>
+    /// Server
+    /// </summary>
     public class ImageServer
     {
         #region Members
@@ -26,7 +28,7 @@ namespace ImageService.Server
         #endregion
 
         /// <summary>
-        /// ImageServer is the server that in sharge on all the Handlers.
+        /// ImageServer is the server that in charge on all the Handlers.
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="logging"></param>
