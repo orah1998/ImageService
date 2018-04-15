@@ -10,6 +10,7 @@ using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System.Text.RegularExpressions;
+using ImageService.Server;
 
 namespace ImageService.Controller.Handlers
 {
@@ -116,6 +117,26 @@ namespace ImageService.Controller.Handlers
         {
 
         }
+
+        public void closeHandler(object sender, DirectoryCloseEventArgs e)
+        {
+            try
+            {
+                // remove OnCommandRecieved from the CommandRecived Event.
+                ((ImageServer)sender).CommandRecieved -= this.OnCommandRecieved;
+                // stop listenning to the given path of folder.
+                this.m_dirWatcher.EnableRaisingEvents = false;
+                this.m_logging.Log("closing handler on path " + this.m_path +" was successful", MessageTypeEnum.INFO);
+            }
+            catch (Exception ex)
+            {
+                this.m_logging.Log("Error: could not close handler of path " + this.m_path + " "
+                    + ex.ToString(), MessageTypeEnum.FAIL);
+            }
+        }
+
+
+
     }
 }
 #endregion
