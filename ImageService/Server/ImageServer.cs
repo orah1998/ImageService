@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Configuration;
+using System.Net.Sockets;
+using System.Net;
 
 namespace ImageService.Server
 {
@@ -28,29 +30,74 @@ namespace ImageService.Server
         public event EventHandler<DirectoryCloseEventArgs> server_close;
         #endregion
 
+        #region serverClient
+        private int port;
+        private TcpListener listener;
+        private IClientHandler ch;
+        #endregion
+
         /// <summary>
         /// ImageServer is the server that in charge on all the Handlers.
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="logging"></param>
-        public ImageServer(IImageController controller,ILoggingService logging)
+        public ImageServer(IImageController controller, ILoggingService logging)
         {
             // intilaize Server's controller and logger.
             this.m_controller = controller;
             this.m_logging = logging;
             // get all directories path
             string[] paths = ConfigurationManager.AppSettings.Get("Handler").Split(';');
-            foreach(string path in paths)
+            foreach (string path in paths)
             {
                 // handler creation
                 IDirectoryHandler directoryHandler = new DirectoyHandler(this.m_logging, this.m_controller, path);
                 CommandRecieved += directoryHandler.OnCommandRecieved;
                 this.server_close += directoryHandler.closeHandler;
                 directoryHandler.StartHandleDirectory(path);
-                this.m_logging.Log("Create handler for path - " + path,Logging.Modal.MessageTypeEnum.INFO);
+                this.m_logging.Log("Create handler for path - " + path, Logging.Modal.MessageTypeEnum.INFO);
             }
-        
+
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Start()
+        {
+            IPEndPoint ep = new
+            IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
+            listener = new TcpListener(ep);
+
+            listener.Start();
+            Console.WriteLine("Waiting for connections...");
+            Task task = new Task(() =>
+            {
+                while (true)
+                {
+                    try
+                    {
+                        TcpClient client = listener.AcceptTcpClient();
+                        Console.WriteLine("Got new connection");
+                        ch.HandleClient(client);
+                    }
+                    catch (SocketException)
+                    {
+                        break;
+                    }
+                }
+                Console.WriteLine("Server stopped");
+            });
+            task.Start();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Stop()
+        {
+            listener.Stop();
+        }
+
 
         /// <summary>
         ///  waht happend when Server close.
