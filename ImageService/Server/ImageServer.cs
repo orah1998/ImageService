@@ -60,16 +60,17 @@ namespace ImageService.Server
 
         }
         /// <summary>
-        /// d
+        /// start connection with clients
         /// </summary>
         public void Start()
         {
             IPEndPoint ep = new
             IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
             listener = new TcpListener(ep);
-
+            // searching for clients
             listener.Start();
             Console.WriteLine("Waiting for connections...");
+
             Task task = new Task(() =>
             {
                 while (true)
