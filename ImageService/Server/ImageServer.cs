@@ -34,6 +34,7 @@ namespace ImageService.Server
         private int port;
         private TcpListener listener;
         private IClientHandler ch;
+        Dictionary<string, IDirectoryHandler> dic=new Dictionary<string, IDirectoryHandler>();
         #endregion
 
         /// <summary>
@@ -41,8 +42,11 @@ namespace ImageService.Server
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="logging"></param>
-        public ImageServer(IImageController controller, ILoggingService logging)
+        public ImageServer(IImageController controller, ILoggingService logging, int port, IClientHandler ch)
         {
+            this.port = port;
+            this.ch = ch;
+
             // intilaize Server's controller and logger.
             this.m_controller = controller;
             this.m_logging = logging;
@@ -53,10 +57,16 @@ namespace ImageService.Server
                 // handler creation
                 IDirectoryHandler directoryHandler = new DirectoyHandler(this.m_logging, this.m_controller, path);
                 CommandRecieved += directoryHandler.OnCommandRecieved;
+
                 this.server_close += directoryHandler.closeHandler;
+
                 directoryHandler.StartHandleDirectory(path);
+                //adding the handler to our dictary so we can close it when we are told to by the GUI
+                dic.Add(path, directoryHandler);
                 this.m_logging.Log("Create handler for path - " + path, Logging.Modal.MessageTypeEnum.INFO);
             }
+
+            Start();
 
         }
         /// <summary>
@@ -79,7 +89,8 @@ namespace ImageService.Server
                     {
                         TcpClient client = listener.AcceptTcpClient();
                         Console.WriteLine("Got new connection");
-                        ch.HandleClient(client);
+                        string toRemove=ch.HandleClient(client);
+                        dic[toRemove].closeHandler(this, null);
                     }
                     catch (SocketException)
                     {

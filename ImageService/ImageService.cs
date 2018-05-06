@@ -88,7 +88,7 @@ namespace ImageService
                 };
 
                 this.controller = new ImageController(this.modal);
-                this.m_imageServer = new ImageServer(this.controller, this.logging);
+                this.m_imageServer = new ImageServer(this.controller, this.logging,8000,new ClientHandler());
 
             }
             catch (Exception e)

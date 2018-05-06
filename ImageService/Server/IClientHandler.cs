@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace ImageService.Server
 {
-    interface IClientHandler
+   public interface IClientHandler
     {
-        void HandleClient(TcpClient client);
+        string HandleClient(TcpClient client);
     }
 }
