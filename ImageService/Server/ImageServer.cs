@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Net.Sockets;
 using System.Net;
+using System.IO;
 
 namespace ImageService.Server
 {
@@ -44,14 +45,17 @@ namespace ImageService.Server
         /// <param name="logging"></param>
         public ImageServer(IImageController controller, ILoggingService logging, int port, IClientHandler ch)
         {
-            this.port = port;
+
+                this.port = port;
             this.ch = ch;
 
             // intilaize Server's controller and logger.
             this.m_controller = controller;
             this.m_logging = logging;
+            this.m_logging.Log("mipimpmpimpmpmpim", Logging.Modal.MessageTypeEnum.INFO);
             // get all directories path
             string[] paths = ConfigurationManager.AppSettings.Get("Handler").Split(';');
+            
             foreach (string path in paths)
             {
                 // handler creation
@@ -64,21 +68,39 @@ namespace ImageService.Server
                 //adding the handler to our dictary so we can close it when we are told to by the GUI
                 dic.Add(path, directoryHandler);
                 this.m_logging.Log("Create handler for path - " + path, Logging.Modal.MessageTypeEnum.INFO);
+
             }
 
-         //   Start();
+            //after looping through the folders:
+
+            Start();
+
+
+
 
         }
+
+
+
+
+
+
         /// <summary>
         /// start connection with clients
         /// </summary>
         public void Start()
         {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
+            using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testing\info.txt"))
+            {
+                outputFile.WriteLine(("shezif"));
+
+
+
+
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
             listener = new TcpListener(ep);
-            // searching for clients
-            listener.Start();
-            Console.WriteLine("Waiting for connections...");
+                // searching for clients
+                listener.Start();
 
             Task task = new Task(() =>
             {
@@ -87,7 +109,7 @@ namespace ImageService.Server
                     try
                     {
                         TcpClient client = listener.AcceptTcpClient();
-                        Console.WriteLine("Got new connection");
+                        outputFile.WriteLine(("got new connections!"));
                         string toRemove=ch.HandleClient(client,this.dic);
                         dic[toRemove].closeHandler(this, null);
                     }
@@ -99,7 +121,26 @@ namespace ImageService.Server
                 Console.WriteLine("Server stopped");
             });
             task.Start();
+
+
+
+
+
+
+
+            }
         }
+
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// 

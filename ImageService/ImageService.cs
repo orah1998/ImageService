@@ -76,6 +76,8 @@ namespace ImageService
                     System.Diagnostics.EventLog.CreateEventSource(eventSourceName, logName);
                 }
 
+
+
                 eventLog1.Source = eventSourceName;
                 eventLog1.Log = logName;
                 //initialize members
@@ -88,7 +90,7 @@ namespace ImageService
                 };
 
                 this.controller = new ImageController(this.modal);
-                this.m_imageServer = new ImageServer(this.controller, this.logging,8200,new ClientHandler());
+                this.m_imageServer = new ImageServer(this.controller, this.logging,8000,new ClientHandler());
 
             }
             catch (Exception e)
@@ -121,7 +123,7 @@ namespace ImageService
 
         protected override void OnStart(string[] args)
         {
-            eventLog1.WriteEntry("In OnStart");
+            eventLog1.WriteEntry("In 2 OnStart");
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
