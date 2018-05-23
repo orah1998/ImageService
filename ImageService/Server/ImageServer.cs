@@ -74,8 +74,7 @@ namespace ImageService.Server
         /// </summary>
         public void Start()
         {
-            IPEndPoint ep = new
-            IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
             listener = new TcpListener(ep);
             // searching for clients
             listener.Start();
@@ -89,7 +88,7 @@ namespace ImageService.Server
                     {
                         TcpClient client = listener.AcceptTcpClient();
                         Console.WriteLine("Got new connection");
-                        string toRemove=ch.HandleClient(client);
+                        string toRemove=ch.HandleClient(client,this.dic);
                         dic[toRemove].closeHandler(this, null);
                     }
                     catch (SocketException)
@@ -125,5 +124,6 @@ namespace ImageService.Server
                 this.m_logging.Log("Close Server ERROR", Logging.Modal.MessageTypeEnum.FAIL);
             }
         }
+
     }
 }

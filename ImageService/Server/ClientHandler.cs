@@ -14,11 +14,7 @@ namespace ImageService.Server
     {
         string toRemove;
         Dictionary<string, IDirectoryHandler> dic;
-
-        public ClientHandler()
-        {
-
-        }
+        
 
         public void addDic(Dictionary<string, IDirectoryHandler> dic)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageService.Controller.Handlers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace ImageService.Server
 {
    public interface IClientHandler
     {
-        string HandleClient(TcpClient client);
+        string HandleClient(TcpClient client, Dictionary<string, IDirectoryHandler> dic);
     }
 }
