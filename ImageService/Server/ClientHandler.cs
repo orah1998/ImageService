@@ -1,4 +1,6 @@
 ﻿using ImageService.Controller.Handlers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -41,12 +43,22 @@ namespace ImageService.Server
         {
             if (commandLine == "AppConfig")
             {
+                JObject objToSend = new JObject();
                 string[] list=ConfigurationManager.AppSettings.AllKeys;
+                JObject obj = new JObject();
                 foreach (string item in list)
                 {
                     //sending as : key:information
-                    writer.Write(item+":"+ConfigurationManager.AppSettings.Get(item));
+                    objToSend[item] = ConfigurationManager.AppSettings.Get(item);
+                   // Handler" value="C: \Users\Operu\Desktop\mip"/>
+                   //"OutputDir" value = "C:\Users\Operu\Desktop\dest" />
+                   //"SourceName" value = "ImageServiceSource" />
+                   //"LogName" value = "ImageServiceLog" />
+                   // "ThumbnailSize"
+
+
                 }
+                writer.Write(JsonConvert.SerializeObject(objToSend));
                 return null;
             }
             else
