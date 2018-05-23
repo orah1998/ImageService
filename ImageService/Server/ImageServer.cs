@@ -66,7 +66,7 @@ namespace ImageService.Server
                 this.m_logging.Log("Create handler for path - " + path, Logging.Modal.MessageTypeEnum.INFO);
             }
 
-            Start();
+         //   Start();
 
         }
         /// <summary>
