@@ -154,6 +154,7 @@ namespace ImageService
 
         protected override void OnStop()
         {
+            //serviceStatus.dwCurrentState = ServiceState.SERVICE_STOPPED;
             eventLog1.WriteEntry("In onStop.");
             this.m_imageServer.OnCloseServer();
             eventLog1.WriteEntry("finishing onStop.");
