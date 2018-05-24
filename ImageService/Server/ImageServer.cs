@@ -45,8 +45,7 @@ namespace ImageService.Server
         /// <param name="logging"></param>
         public ImageServer(IImageController controller, ILoggingService logging, int port, IClientHandler ch)
         {
-
-                this.port = port;
+            this.port = port;
             this.ch = ch;
 
             // intilaize Server's controller and logger.
@@ -71,6 +70,7 @@ namespace ImageService.Server
 
             }
 
+
             //after looping through the folders:
 
             Start();
@@ -90,45 +90,36 @@ namespace ImageService.Server
         /// </summary>
         public void Start()
         {
-            using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testing\info.txt"))
-            {
-                outputFile.WriteLine(("shezif"));
-
-
-
-
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
             listener = new TcpListener(ep);
                 // searching for clients
                 listener.Start();
-
-            Task task = new Task(() =>
+                Task task = new Task(() =>
             {
                 while (true)
                 {
-                    try
+                    using (StreamWriter outputFile2 = File.AppendText(@"C:\Users\Operu\Desktop\testing\info.txt"))
                     {
-                        TcpClient client = listener.AcceptTcpClient();
-                        outputFile.WriteLine(("got new connections!"));
-                        string toRemove=ch.HandleClient(client,this.dic);
-                        dic[toRemove].closeHandler(this, null);
-                    }
-                    catch (SocketException)
-                    {
-                        break;
+                        try
+                        {
+
+                            TcpClient client = listener.AcceptTcpClient();
+                            outputFile2.WriteLine(("entered Task!!"));
+                            string toRemove = ch.HandleClient(client, this.dic);
+                            dic[toRemove].closeHandler(this, null);
+
+                        }
+                        catch (SocketException)
+                        {
+                            outputFile2.WriteLine(("an exception has occured!"));
+                            break;
+                        }
                     }
                 }
                 Console.WriteLine("Server stopped");
             });
             task.Start();
-
-
-
-
-
-
-
-            }
+            
         }
 
 

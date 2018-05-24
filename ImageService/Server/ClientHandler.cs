@@ -28,18 +28,27 @@ namespace ImageService.Server
         {
             string result;
             using (NetworkStream stream = client.GetStream())
-                using (StreamReader reader = new StreamReader(stream))
-                using (StreamWriter writer = new StreamWriter(stream))
+            using (BinaryReader reader = new BinaryReader(stream))
+            using (BinaryWriter writer = new BinaryWriter(stream)) {    
+            string commandLine = reader.ReadString();
+                using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
                 {
-                    string commandLine = reader.ReadLine();
-                    Console.WriteLine("Got command: {0}", commandLine);
-                    result = ExecuteCommand(commandLine, client,writer,reader);
+                    outputFile.WriteLine("Got command: {0}", commandLine);
                 }
-                client.Close();
+                JObject obj =JsonConvert.DeserializeObject<JObject>(commandLine);
+                result = ExecuteCommand(obj["inst"].ToString(), client,writer,reader);
+
+
+                
+            }
+            client.Close();
             return result;
+            
         }
 
-        private string ExecuteCommand(string commandLine, TcpClient client, StreamWriter writer,StreamReader reader)
+       
+
+        private string ExecuteCommand(string commandLine, TcpClient client, BinaryWriter writer, BinaryReader reader)
         {
             if (commandLine == "AppConfig")
             {
@@ -63,7 +72,7 @@ namespace ImageService.Server
             }
             else
             {
-                toRemove = reader.ReadLine();
+                toRemove = reader.ReadString();
                 //removing
                 return toRemove;
             }
