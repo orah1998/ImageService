@@ -13,6 +13,8 @@ using System.Configuration;
 using System.Net.Sockets;
 using System.Net;
 using System.IO;
+using ImageService.Commands;
+using static ImageService.Commands.Delegates;
 
 namespace ImageService.Server
 {
@@ -21,6 +23,10 @@ namespace ImageService.Server
     /// </summary>
     public class ImageServer
     {
+
+
+        public event DeleteFolder handle;
+
         #region Members
         private IImageController m_controller;
         private ILoggingService m_logging;
@@ -43,14 +49,19 @@ namespace ImageService.Server
         /// </summary>
         /// <param name="controller"></param>
         /// <param name="logging"></param>
-        public ImageServer(IImageController controller, ILoggingService logging, int port, IClientHandler ch)
+        public ImageServer(IImageController controller, ILoggingService logging, int port)
         {
             this.port = port;
-            this.ch = ch;
+            //function to remove handler
+            this.handle += this.handling;
+            //function to inform our list of handlers that a handler was removed:
+            this.handle+=HandlerSingleton.Instance.GetDelegate();
+
 
             // intilaize Server's controller and logger.
             this.m_controller = controller;
             this.m_logging = logging;
+            this.ch = new ClientHandler(new ExecuteCommands(this.m_logging), this.handle);
             this.m_logging.Log("mipimpmpimpmpmpim", Logging.Modal.MessageTypeEnum.INFO);
             // get all directories path
             string[] paths = ConfigurationManager.AppSettings.Get("Handler").Split(';');
@@ -60,12 +71,11 @@ namespace ImageService.Server
                 // handler creation
                 IDirectoryHandler directoryHandler = new DirectoyHandler(this.m_logging, this.m_controller, path);
                 CommandRecieved += directoryHandler.OnCommandRecieved;
-
                 this.server_close += directoryHandler.closeHandler;
-
                 directoryHandler.StartHandleDirectory(path);
                 //adding the handler to our dictary so we can close it when we are told to by the GUI
                 dic.Add(path, directoryHandler);
+                HandlerSingleton.addItem(path);
                 this.m_logging.Log("Create handler for path - " + path, Logging.Modal.MessageTypeEnum.INFO);
 
             }
@@ -94,27 +104,20 @@ namespace ImageService.Server
             listener = new TcpListener(ep);
                 // searching for clients
                 listener.Start();
+            //connecting with every GUI's Settings Model
                 Task task = new Task(() =>
             {
                 while (true)
                 {
-                    using (StreamWriter outputFile2 = File.AppendText(@"C:\Users\Operu\Desktop\testing\info.txt"))
-                    {
                         try
                         {
-
                             TcpClient client = listener.AcceptTcpClient();
-                            outputFile2.WriteLine(("entered Task!!"));
-                            string toRemove = ch.HandleClient(client, this.dic);
-                            dic[toRemove].closeHandler(this, null);
-
-                        }
+                            string toRemove = ch.HandleClient(client);
+                    }
                         catch (SocketException)
                         {
-                            outputFile2.WriteLine(("an exception has occured!"));
                             break;
                         }
-                    }
                 }
                 Console.WriteLine("Server stopped");
             });
@@ -123,15 +126,7 @@ namespace ImageService.Server
         }
 
 
-
-
-
-
-
-
-
-
-
+        
 
         /// <summary>
         /// 
@@ -143,7 +138,7 @@ namespace ImageService.Server
 
 
         /// <summary>
-        ///  waht happend when Server close.
+        ///  what happend when Server close.
         /// </summary>
         public void OnCloseServer()
         {
@@ -156,6 +151,47 @@ namespace ImageService.Server
                 this.m_logging.Log("Close Server ERROR", Logging.Modal.MessageTypeEnum.FAIL);
             }
         }
+
+
+
+
+    public void handling(string str)
+        {
+            using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
+            {
+                outputFile.WriteLine(str);
+            }
+
+
+            if (str != null) {
+                if (dic[str]!= null)
+                {
+                    using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
+                    {
+                        outputFile.WriteLine(str);
+                    }
+
+                    dic[str].closeHandler(this,null);
+                    using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
+                    {
+                        outputFile.WriteLine("removed handler");
+                    }
+                }
+            }
+
+
+
+
+
+            using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
+            {
+                outputFile.WriteLine("after trying to invoke");
+            }
+        }
+
+
+
+
 
     }
 }

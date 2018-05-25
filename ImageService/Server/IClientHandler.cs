@@ -11,6 +11,6 @@ namespace ImageService.Server
 {
    public interface IClientHandler
     {
-        string HandleClient(TcpClient client, Dictionary<string, IDirectoryHandler> dic);
+        string HandleClient(TcpClient client);
     }
 }

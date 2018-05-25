@@ -15,6 +15,7 @@ using ImageService.Logging;
 using ImageService.Logging.Modal;
 using System.Configuration;
 using ImageService.Infrastructure;
+using ImageService.Commands;
 
 namespace ImageService
 {
@@ -88,10 +89,8 @@ namespace ImageService
                     OutputFolder = ConfigurationManager.AppSettings.Get("OutputDir"),
                     thumbnailSize = Int32.Parse(ConfigurationManager.AppSettings.Get("ThumbnailSize"))
                 };
-
                 this.controller = new ImageController(this.modal);
-                this.m_imageServer = new ImageServer(this.controller, this.logging,8000,new ClientHandler());
-
+                this.m_imageServer = new ImageServer(this.controller, this.logging,8000);
             }
             catch (Exception e)
             {
@@ -123,7 +122,7 @@ namespace ImageService
 
         protected override void OnStart(string[] args)
         {
-            eventLog1.WriteEntry("In 2 OnStart");
+            eventLog1.WriteEntry("In2222222 2 OnStart");
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;

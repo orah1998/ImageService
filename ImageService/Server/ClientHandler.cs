@@ -1,4 +1,5 @@
-﻿using ImageService.Controller.Handlers;
+﻿using ImageService.Commands;
+using ImageService.Controller.Handlers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -9,75 +10,49 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using static ImageService.Commands.Delegates;
 
 namespace ImageService.Server
 {
-   public class ClientHandler : IClientHandler
+    public class ClientHandler : IClientHandler
     {
+       
+        public event DeleteFolder handle;
         string toRemove;
         Dictionary<string, IDirectoryHandler> dic;
-        
+        private IExecuteCommand exec;
 
-        public void addDic(Dictionary<string, IDirectoryHandler> dic)
+        public ClientHandler(IExecuteCommand exec,DeleteFolder handl)
         {
-            this.dic = dic;
+            this.handle = handl;
+            this.exec = exec;
         }
 
 
-        public string HandleClient(TcpClient client, Dictionary<string, IDirectoryHandler> dic)
+        public string HandleClient(TcpClient client)
         {
-            string result;
-            using (NetworkStream stream = client.GetStream())
-            using (BinaryReader reader = new BinaryReader(stream))
-            using (BinaryWriter writer = new BinaryWriter(stream)) {    
-            string commandLine = reader.ReadString();
-                using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
+            string result="";
+            new Task(() =>
+            {
+                using (NetworkStream stream = client.GetStream())
+                using (BinaryReader reader = new BinaryReader(stream))
+                using (BinaryWriter writer = new BinaryWriter(stream))
                 {
-                    outputFile.WriteLine("Got command: {0}", commandLine);
+                    string commandLine = reader.ReadString();
+                    JObject obj = JsonConvert.DeserializeObject<JObject>(commandLine);
+                    try { 
+                    result = exec.ExecuteCommand(obj["inst"].ToString(), obj["etc"].ToString(), client, writer, reader);
+                    }catch(Exception e)
+                    {
+                        result = exec.ExecuteCommand(obj["inst"].ToString(), null, client, writer, reader);
+                    }
+                    this.handle?.Invoke(result);
+
+
                 }
-                JObject obj =JsonConvert.DeserializeObject<JObject>(commandLine);
-                result = ExecuteCommand(obj["inst"].ToString(), client,writer,reader);
-
-
-                
-            }
-            client.Close();
+                client.Close();
+            }).Start();
             return result;
-            
-        }
-
-       
-
-        private string ExecuteCommand(string commandLine, TcpClient client, BinaryWriter writer, BinaryReader reader)
-        {
-            if (commandLine == "AppConfig")
-            {
-                JObject objToSend = new JObject();
-                string[] list=ConfigurationManager.AppSettings.AllKeys;
-                JObject obj = new JObject();
-                foreach (string item in list)
-                {
-                    //sending as : key:information
-                    objToSend[item] = ConfigurationManager.AppSettings.Get(item);
-                   // Handler" value="C: \Users\Operu\Desktop\mip"/>
-                   //"OutputDir" value = "C:\Users\Operu\Desktop\dest" />
-                   //"SourceName" value = "ImageServiceSource" />
-                   //"LogName" value = "ImageServiceLog" />
-                   // "ThumbnailSize"
-
-
-                }
-                writer.Write(JsonConvert.SerializeObject(objToSend));
-                return null;
-            }
-            else
-            {
-                toRemove = reader.ReadString();
-                //removing
-                return toRemove;
-            }
-
-
         }
     }
 }

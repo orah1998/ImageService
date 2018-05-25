@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ImageService.Commands
 {
-    interface ICommand
+   public class Delegates
     {
-        string Execute(string[] args, out bool result);
+        public delegate void DeleteFolder(String name);
     }
 }
