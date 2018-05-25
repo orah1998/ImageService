@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,6 @@ namespace ImageService.Server
 {
     class HandlerSingleton
     {
-
-        public event DeleteFolder removedItem;
-
         private static HandlerSingleton instance = null;
         private static readonly object padlock = new object();
         private static List<string> list;
@@ -20,7 +18,6 @@ namespace ImageService.Server
         HandlerSingleton()
         {
             list = new List<string>();
-            removedItem +=removeItem;
         }
 
         public static HandlerSingleton Instance
@@ -50,6 +47,11 @@ namespace ImageService.Server
 
         public static void removeItem(string val)
         {
+
+            using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
+            {
+                outputFile.WriteLine("before removing the node! {0}",val);
+            }
             list.Remove(val);
         }
 
@@ -61,6 +63,7 @@ namespace ImageService.Server
             {
                 ret +=item+";";
             }
+            ret = ret.Remove(ret.Length - 1);
             return ret;
         }
 

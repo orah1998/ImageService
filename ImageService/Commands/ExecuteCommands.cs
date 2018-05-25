@@ -28,6 +28,16 @@ namespace ImageService.Commands
 
         public string ExecuteCommand(string commandLine,string info, TcpClient client, BinaryWriter writer, BinaryReader reader)
         {
+
+            if (commandLine == "6")
+            {
+                JObject objToSend = new JObject();
+                objToSend["Handler"] = HandlerSingleton.getListAsString();
+                writer.Write(JsonConvert.SerializeObject(objToSend));
+                return "6";
+            }
+
+
             string toRemove;
             if (commandLine == "1")
             {
@@ -46,20 +56,10 @@ namespace ImageService.Commands
                 string toSend = "message code " + commandLine + " " + CommandEnum.GetConfigCommand + " was Successful with Result:" + JsonConvert.SerializeObject(objToSend);
                 this.log.Log(toSend, Logging.Modal.MessageTypeEnum.INFO);
 
-                using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
-                {
-                    outputFile.WriteLine("about to send 1");
-                }
-
                 return "1";
             }
             if(commandLine=="3")
             {
-                using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
-                {
-                    outputFile.WriteLine("inside commandline 3!!!");
-                }
-
                 //removing
                 return info;
             }
