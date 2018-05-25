@@ -84,6 +84,7 @@
     <Compile Include="Server\HandlerSingleton.cs" />
     <Compile Include="Server\ImageServer.cs" />
     <Compile Include="Server\IClientHandler.cs" />
+    <Compile Include="Server\LogListSingleton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".vs\ProjectSettings.json" />

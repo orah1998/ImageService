@@ -67,7 +67,7 @@ namespace ImageService.Controller.Handlers
         public void watchModified(object sender, FileSystemEventArgs e)
         {
             string[] files;
-            this.m_logging.Log("Entered watchModified looking at file: " + e.FullPath, MessageTypeEnum.INFO);
+          //  this.m_logging.Log("Entered watchModified looking at file: " + e.FullPath, MessageTypeEnum.INFO);
             string extension = Path.GetExtension(e.FullPath);
 
             if (this.endings.Contains(extension))
@@ -84,7 +84,6 @@ namespace ImageService.Controller.Handlers
 
         public void watchCreated(object sender, FileSystemEventArgs e)
         {
-            this.m_logging.Log("Enterd watchCreated looking at file: " + e.FullPath, MessageTypeEnum.INFO);
             string extension = Path.GetExtension(e.FullPath);
 
             if (this.endings.Contains(extension))

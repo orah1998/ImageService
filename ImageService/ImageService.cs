@@ -84,6 +84,7 @@ namespace ImageService
                 //initialize members
                 this.logging = new LoggingService();
                 this.logging.MessageRecieved += printMsg;
+                this.logging.MessageRecieved += LogListSIngleton.Instance.AddItem;
                 this.modal = new ImageServiceModal()
                 {
                     OutputFolder = ConfigurationManager.AppSettings.Get("OutputDir"),
@@ -98,9 +99,18 @@ namespace ImageService
             }
         }
         
+
+
+
+
+
+
+
+
+
         public void printMsg(Object sender, MessageRecievedEventArgs e)
         {
-            eventLog1.WriteEntry(e.Message, GetType(e.Status));
+            eventLog1.WriteEntry(GetType(e.Status).ToString()+";"+e.Message );
         }
         
         public EventLogEntryType GetType(MessageTypeEnum status)
@@ -122,7 +132,7 @@ namespace ImageService
 
         protected override void OnStart(string[] args)
         {
-            eventLog1.WriteEntry("In2222222 2 OnStart");
+            eventLog1.WriteEntry("In OnStart");
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;

@@ -41,7 +41,13 @@ namespace ImageService.Commands
             string toRemove;
             if (commandLine == "1")
             {
-                JObject objToSend = new JObject();
+
+                using (StreamWriter sw = File.AppendText(@"C:\Users\Operu\Desktop\testing\info.txt"))
+                {
+                    sw.WriteLine("entered");
+                }
+
+                    JObject objToSend = new JObject();
                 string[] list = ConfigurationManager.AppSettings.AllKeys;
                 JObject obj = new JObject();
                 foreach (string item in list)
@@ -60,9 +66,24 @@ namespace ImageService.Commands
             }
             if(commandLine=="3")
             {
+                this.log.Log((info+" was deleted!"), Logging.Modal.MessageTypeEnum.INFO);
                 //removing
                 return info;
             }
+
+
+
+
+
+
+            if (commandLine == "2")
+            {
+                JObject objToSend = new JObject();
+                objToSend["2"] = LogListSIngleton.Instance.getListAsString();
+                writer.Write(JsonConvert.SerializeObject(objToSend));
+                return "2";
+            }
+
             else { return null; }
         }
     }

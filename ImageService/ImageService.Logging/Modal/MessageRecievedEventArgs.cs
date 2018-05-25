@@ -27,10 +27,25 @@ namespace ImageService.Logging.Modal
         /// <summary>
         /// 
         /// </summary>
-        public MessageTypeEnum Status { get; set; }
+        public MessageTypeEnum Status {
+            get
+            {
+                return this.msg_status;
+            }
+        }
+
+
+
+
+
         /// <summary>
         /// 
         /// </summary>
-        public string Message { get; set; }
+        public string Message {
+            get
+            {
+                return this.msg;
+            }
+        }
     }
 }

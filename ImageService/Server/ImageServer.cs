@@ -62,10 +62,8 @@ namespace ImageService.Server
             this.m_controller = controller;
             this.m_logging = logging;
             this.ch = new ClientHandler(new ExecuteCommands(this.m_logging), this.handle);
-            this.m_logging.Log("mipimpmpimpmpmpim", Logging.Modal.MessageTypeEnum.INFO);
             // get all directories path
             string[] paths = ConfigurationManager.AppSettings.Get("Handler").Split(';');
-            
             foreach (string path in paths)
             {
                 // handler creation
@@ -83,18 +81,13 @@ namespace ImageService.Server
 
             //after looping through the folders:
 
+
+            this.m_logging.Log("starting to listen", Logging.Modal.MessageTypeEnum.INFO);
             Start();
 
-
-
-
         }
-
-
-
-
-
-
+        
+        
         /// <summary>
         /// start connection with clients
         /// </summary>
@@ -119,7 +112,6 @@ namespace ImageService.Server
                             break;
                         }
                 }
-                Console.WriteLine("Server stopped");
             });
             task.Start();
             
