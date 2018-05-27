@@ -14,6 +14,9 @@ using static ImageService.Commands.Delegates;
 
 namespace ImageService.Server
 {
+    /// <summary>
+    /// sending the client to a certain format of executing
+    /// </summary>
     public class ClientHandler : IClientHandler
     {
        
@@ -28,7 +31,11 @@ namespace ImageService.Server
             this.exec = exec;
         }
 
-
+        /// <summary>
+        /// creating a task for the recieved client
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
         public string HandleClient(TcpClient client)
         {
             string result="";

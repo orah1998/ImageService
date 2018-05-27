@@ -14,18 +14,33 @@ using ImageService.Server;
 
 namespace ImageService.Commands
 {
+    /// <summary>
+    /// defines how the server will handle the commands
+    /// </summary>
     class ExecuteCommands : IExecuteCommand
     {
 
         ILoggingService log;
 
+        /// <summary>
+        /// getting the log in order to write to it
+        /// </summary>
+        /// <param name="log"></param>
         public ExecuteCommands(ILoggingService log)
         {
             this.log = log;
         }
 
 
-
+        /// <summary>
+        /// handling the request
+        /// </summary>
+        /// <param name="commandLine"></param>
+        /// <param name="info"></param>
+        /// <param name="client"></param>
+        /// <param name="writer"></param>
+        /// <param name="reader"></param>
+        /// <returns></returns>
         public string ExecuteCommand(string commandLine,string info, TcpClient client, BinaryWriter writer, BinaryReader reader)
         {
 

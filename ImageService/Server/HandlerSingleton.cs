@@ -9,10 +9,12 @@ using static ImageService.Commands.Delegates;
 
 namespace ImageService.Server
 {
+    /// <summary>
+    /// a list that holds all the current directory handlers that are still working
+    /// </summary>
     class HandlerSingleton
     {
         private static HandlerSingleton instance = null;
-        private static readonly object padlock = new object();
         private static List<string> list;
 
         HandlerSingleton()
@@ -20,6 +22,9 @@ namespace ImageService.Server
             list = new List<string>();
         }
 
+        /// <summary>
+        /// instance of it
+        /// </summary>
         public static HandlerSingleton Instance
         {
             get
