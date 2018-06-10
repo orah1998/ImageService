@@ -98,10 +98,21 @@ namespace ImageService.Modal
                         destPathThumb = PathForSameName(m_OutputFolder + "\\" + year + "\\" +month,
                             m_OutputFolder + "\\" + "Thumbnails" + "\\" + year + "\\" + month);
                     }
+
+
+
+
                     //creating the thumbnail photo.
-                    Image thumbnail = Image.FromFile(destPath);
-                    thumbnail = (Image)(new Bitmap(thumbnail, new Size(this.m_thumbnailSize, this.m_thumbnailSize)));
-                    thumbnail.Save(destPathThumb);
+                    using (Image thumbnailoriginal = Image.FromFile(destPath))
+                    {
+                        using (Image thumbnail = (Image)(new Bitmap(thumbnailoriginal, new Size(this.m_thumbnailSize, this.m_thumbnailSize))))
+                        {
+                            thumbnail.Save(destPathThumb);
+                        }
+                    }
+
+
+
                     answer += " thumbnail added as well." + Path.GetFileName(path);
                     result = true;
                     return answer;

@@ -47,8 +47,12 @@ namespace ImageService.Server
                 {
                     string commandLine = reader.ReadString();
                     JObject obj = JsonConvert.DeserializeObject<JObject>(commandLine);
-                    try { 
-                    result = exec.ExecuteCommand(obj["inst"].ToString(), obj["etc"].ToString(), client, writer, reader);
+                    try {
+                        using (StreamWriter sw = File.AppendText(@"C: \Users\Operu\Desktop\testing\info.txt"))
+                        {
+                            sw.WriteLine(obj["inst"].ToString()+" "+ obj["etc"].ToString());
+                        }
+                        result = exec.ExecuteCommand(obj["inst"].ToString(), obj["etc"].ToString(), client, writer, reader);
                     }catch(Exception e)
                     {
                         result = exec.ExecuteCommand(obj["inst"].ToString(), null, client, writer, reader);

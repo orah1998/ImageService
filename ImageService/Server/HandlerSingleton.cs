@@ -53,10 +53,7 @@ namespace ImageService.Server
         public static void removeItem(string val)
         {
 
-            using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
-            {
-                outputFile.WriteLine("before removing the node! {0}",val);
-            }
+            
             list.Remove(val);
         }
 
@@ -68,7 +65,16 @@ namespace ImageService.Server
             {
                 ret +=item+";";
             }
-            ret = ret.Remove(ret.Length - 1);
+           
+
+            if (ret == "")
+            {
+                ret = "NONE";
+            }
+            else
+            {
+                ret = ret.Remove(ret.Length - 1);
+            }
             return ret;
         }
 

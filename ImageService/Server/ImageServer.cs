@@ -51,6 +51,10 @@ namespace ImageService.Server
         /// <param name="logging"></param>
         public ImageServer(IImageController controller, ILoggingService logging, int port)
         {
+            
+
+
+
             this.port = port;
             //function to remove handler
             this.handle += this.handling;
@@ -63,6 +67,7 @@ namespace ImageService.Server
             this.m_logging = logging;
             this.ch = new ClientHandler(new ExecuteCommands(this.m_logging), this.handle);
             // get all directories path
+           
             string[] paths = ConfigurationManager.AppSettings.Get("Handler").Split(';');
             foreach (string path in paths)
             {
@@ -77,7 +82,7 @@ namespace ImageService.Server
                 this.m_logging.Log("Create handler for path - " + path, Logging.Modal.MessageTypeEnum.INFO);
 
             }
-
+           
 
             //after looping through the folders:
 
@@ -95,8 +100,9 @@ namespace ImageService.Server
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
             listener = new TcpListener(ep);
-                // searching for clients
-                listener.Start();
+            
+            // searching for clients
+            listener.Start();
             //connecting with every GUI's Settings Model
                 Task task = new Task(() =>
             {
@@ -104,8 +110,13 @@ namespace ImageService.Server
                 {
                         try
                         {
-                            TcpClient client = listener.AcceptTcpClient();
-                            string toRemove = ch.HandleClient(client);
+                        
+                        TcpClient client = listener.AcceptTcpClient();
+                        using (StreamWriter sw = File.AppendText(@"C: \Users\Operu\Desktop\testing\info.txt"))
+                        {
+                            sw.WriteLine("accepted");
+                        }
+                        string toRemove = ch.HandleClient(client);
                     }
                         catch (SocketException)
                         {
@@ -149,36 +160,20 @@ namespace ImageService.Server
 
     public void handling(string str)
         {
-            using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
-            {
-                outputFile.WriteLine(str);
-            }
-
 
             if (str != null) {
                 if (dic[str]!= null)
                 {
-                    using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
-                    {
-                        outputFile.WriteLine(str);
-                    }
-
+                    
                     dic[str].closeHandler(this,null);
-                    using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
-                    {
-                        outputFile.WriteLine("removed handler");
-                    }
+                    
                 }
             }
 
 
 
 
-
-            using (StreamWriter outputFile = File.AppendText(@"C:\Users\Operu\Desktop\testGui\GUI.txt"))
-            {
-                outputFile.WriteLine("after trying to invoke");
-            }
+            
         }
 
 

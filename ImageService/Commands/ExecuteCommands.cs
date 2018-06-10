@@ -56,13 +56,7 @@ namespace ImageService.Commands
             string toRemove;
             if (commandLine == "1")
             {
-
-                using (StreamWriter sw = File.AppendText(@"C:\Users\Operu\Desktop\testing\info.txt"))
-                {
-                    sw.WriteLine("entered");
-                }
-
-                    JObject objToSend = new JObject();
+                JObject objToSend = new JObject();
                 string[] list = ConfigurationManager.AppSettings.AllKeys;
                 JObject obj = new JObject();
                 foreach (string item in list)
@@ -71,7 +65,9 @@ namespace ImageService.Commands
                     objToSend[item] = ConfigurationManager.AppSettings.Get(item);
                     }
                 }
+
                 objToSend["Handler"] =HandlerSingleton.getListAsString();
+
 
                 writer.Write(JsonConvert.SerializeObject(objToSend));
                 string toSend = "message code " + commandLine + " " + CommandEnum.GetConfigCommand + " was Successful with Result:" + JsonConvert.SerializeObject(objToSend);
@@ -79,19 +75,36 @@ namespace ImageService.Commands
 
                 return "1";
             }
+
+
+
+
+
+
             if(commandLine=="3")
             {
                 this.log.Log((info+" was deleted!"), Logging.Modal.MessageTypeEnum.INFO);
+                JObject objToSend = new JObject();
+                objToSend["res"] = "1";
+                writer.Write(JsonConvert.SerializeObject(objToSend));
                 //removing
                 return info;
+            }
+
+            if (commandLine == "5")
+            {
+
+               
+                    JObject objToSend = new JObject();
+                objToSend["moved"] =movedPics.Instance.Amount;
+                writer.Write(JsonConvert.SerializeObject(objToSend));
+                return "5";
             }
 
 
 
 
-
-
-            if (commandLine == "2")
+                if (commandLine == "2")
             {
                 JObject objToSend = new JObject();
                 objToSend["2"] = LogListSIngleton.Instance.getListAsString();

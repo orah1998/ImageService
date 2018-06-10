@@ -49,7 +49,9 @@ namespace ImageService.Controller.Handlers
         {
             m_logging.Log("now using StartHandleDirectory function" + " " + dirPath, MessageTypeEnum.INFO);
             this.m_dirWatcher.Created += new FileSystemEventHandler(watchCreated);
+            this.m_dirWatcher.Created += movedPics.Instance.AddItem();
             this.m_dirWatcher.Changed += new FileSystemEventHandler(watchCreated);
+            this.m_dirWatcher.Changed += movedPics.Instance.AddItem();
             this.m_dirWatcher.Renamed += new RenamedEventHandler(watchCreated) ;
             
             //start listen to directory
