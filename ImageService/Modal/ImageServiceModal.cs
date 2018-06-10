@@ -103,17 +103,16 @@ namespace ImageService.Modal
 
 
                     //creating the thumbnail photo.
-                    using (Image thumbnailoriginal = Image.FromFile(destPath))
+                    
+                    using (Image image = Image.FromFile(destPath))
+                    using (Image thumbnail = image.GetThumbnailImage(this.m_thumbnailSize, this.m_thumbnailSize, () => false, IntPtr.Zero))
                     {
-                        using (Image thumbnail = (Image)(new Bitmap(thumbnailoriginal, new Size(this.m_thumbnailSize, this.m_thumbnailSize))))
-                        {
-                            thumbnail.Save(destPathThumb);
-                        }
+                        thumbnail.Save(destPathThumb);
                     }
+                
 
 
-
-                    answer += " thumbnail added as well." + Path.GetFileName(path);
+                answer += " thumbnail added as well." + Path.GetFileName(path);
                     result = true;
                     return answer;
 
