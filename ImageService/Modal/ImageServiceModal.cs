@@ -112,7 +112,7 @@ namespace ImageService.Modal
                         {
                             sw.WriteLine(destPathThumb);
                         }
-
+                        image.Dispose();
                     }
                 
 
