@@ -1,0 +1,326 @@
+commit 10418c3606632819241c65e6e6d2e53d84b80f38 (HEAD -> master, origin/master)
+Author: or aharoni <orah1998@gmail.com>
+Date:   Sun Jun 10 15:21:08 2018 +0300
+
+    adv
+
+commit e83bed51f30f5dac46d4c716a74fd92d3fd4f6c4
+Author: or aharoni <orah1998@gmail.com>
+Date:   Sun Jun 10 13:08:50 2018 +0300
+
+    mip
+
+commit c00ed49d122604cc56ebc88e66f464abc2dce22f
+Author: or aharoni <orah1998@gmail.com>
+Date:   Sun Jun 10 13:02:20 2018 +0300
+
+    acs
+
+commit d13ab2aceedf64951b3c885a1d59b7c7758e5086
+Author: yair refaeli <yairefaeli324@gmail.com>
+Date:   Sun Jun 10 09:01:02 2018 +0300
+
+    sng
+
+commit c8a114656f0d41923b92c7f815e61021c7d30c92
+Author: or aharoni <orah1998@gmail.com>
+Date:   Sun Jun 10 08:57:23 2018 +0300
+
+    asc
+
+commit aad83e1409c353d644913ae0aaa5c4c25ebfb4b3
+Author: or aharoni <orah1998@gmail.com>
+Date:   Sun May 27 13:48:49 2018 +0300
+
+    with comments
+
+commit 29338ebb3250dafa9a339ea23692018890fb24a4
+Author: or aharoni <orah1998@gmail.com>
+Date:   Fri May 25 18:28:30 2018 +0300
+
+    shezif
+
+commit 3f9dbf27a687220e65480368a78c35918e67b083
+Author: or aharoni <orah1998@gmail.com>
+Date:   Fri May 25 11:52:11 2018 +0300
+
+    asf
+
+commit 3aebcfd3919f86747d3e9e7abe50f3f20c74c5f3
+Author: or aharoni <orah1998@gmail.com>
+Date:   Fri May 25 10:29:23 2018 +0300
+
+    with singleton
+
+commit d7a6e94887923eeb27149e191bd0f98310ed9c4b
+Author: or aharoni <orah1998@gmail.com>
+Date:   Thu May 24 12:56:37 2018 +0300
+
+    working connection
+
+commit bb86cdcc787c87cdfb282ca302e2cbce52bb365c
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed May 23 18:11:51 2018 +0300
+
+    working data binding to GUI
+
+commit cba212faa76be8d1b74c2e28fbc1d4c66c3cc4bc
+Author: yair refaeli <yairefaeli324@gmail.com>
+Date:   Wed May 23 14:02:54 2018 +0300
+
+    goooo
+
+commit 0ea517271c7d16a4c87df32cb6975a619acbcaaf
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed May 23 13:54:03 2018 +0300
+
+    updated main
+
+commit fe6143af621fef5b11551a7dab77d2069be752c5
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed May 23 13:32:57 2018 +0300
+
+    updated
+
+commit c120014f52dc10879582e3837d61b52e557a7289
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed May 23 11:02:41 2018 +0300
+
+    dfn
+
+commit e40a30b8f635cf0d12b0776e66ce80cdf9bee24e
+Author: or aharoni <orah1998@gmail.com>
+Date:   Sun May 6 15:17:03 2018 +0300
+
+    updated connectivity
+
+commit 92eb167cf888a1352d4ae160a024ae75010c5d54
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Wed May 2 15:46:14 2018 +0300
+
+    some clim
+
+commit eae9538be993de25ad3724b24d3453f05db4bdb1
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Tue May 1 17:41:10 2018 +0300
+
+    more
+
+commit 49923aecd8f53edc33d27e1b49e225a3a11725ce
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Tue May 1 17:40:26 2018 +0300
+
+    serever update
+    client handler
+
+commit 0777b6bed0b4d89cf64900f9ff483206592a64e6
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Sun Apr 15 13:56:17 2018 +0300
+
+    server update
+
+commit 9cad30f632eb9f9077e99543efd1290ceec67019
+Merge: 47129a9 ffa8082
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Sun Apr 15 13:46:54 2018 +0300
+
+    Merge branch 'master' of https://github.com/orah1998/ImageService
+
+commit 47129a9444914c5a320aab331f64d6e57816a9e2
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Sun Apr 15 13:46:34 2018 +0300
+
+    pusg
+
+commit d422b41dda292da41f125bdce377f26897156b91
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Sun Apr 15 11:36:28 2018 +0300
+
+    some comments
+
+commit ffa8082d958df1df64bd5d0048bc8e157b3a0a7e
+Author: or aharoni <orah1998@gmail.com>
+Date:   Sun Apr 15 10:46:05 2018 +0300
+
+    close handler
+
+commit ea5185e668f5a41f5510e73dbaf7adc3d0a2bb09
+Author: or aharoni <orah1998@gmail.com>
+Date:   Sun Apr 15 10:38:36 2018 +0300
+
+    without close functions
+
+commit 5360dc6378c5616c5c804e7a27000ecb3525819b
+Author: or aharoni <orah1998@gmail.com>
+Date:   Thu Apr 12 16:06:18 2018 +0300
+
+    without closing functions
+
+commit d49b26e9d4b3c2f9840dbdb78e48d2271dfcc6f9
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Thu Apr 12 16:00:50 2018 +0300
+
+    push
+
+commit ebfb7e72c4e85df4b8c310732a1e58dce9d80994
+Author: or aharoni <orah1998@gmail.com>
+Date:   Thu Apr 12 15:29:43 2018 +0300
+
+    missing closing functions
+
+commit 6bb572b08c63a9f5ff876ce592e98fc252628d6e
+Author: or aharoni <orah1998@gmail.com>
+Date:   Thu Apr 12 11:12:01 2018 +0300
+
+    missing closing functions
+
+commit 4cbaffd7a6d2fadc4dcbc531a761c4fabef3822a
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed Apr 11 17:47:09 2018 +0300
+
+    project without closing
+
+commit 5447d2d42eec0a918be90bd28b991429edd309ef
+Merge: c5375ba 317c437
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed Apr 11 16:39:47 2018 +0300
+
+    Merge branch 'master' of https://github.com/orah1998/ImageService
+
+commit 317c437cbcf5a5ec407580c08ce22ce7cde0075d
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Wed Apr 11 18:37:18 2018 +0300
+
+    server oved
+
+commit 7077e46bdc27cdf3e60ed43985de33451f339741
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Wed Apr 11 18:13:04 2018 +0300
+
+    Server update
+
+commit c5375ba90f08783878e856c8b889c022304ef8a2
+Merge: 17ea04c 7077e46
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed Apr 11 16:39:08 2018 +0300
+
+    Merge branch 'master' of https://github.com/orah1998/ImageService
+
+commit 17ea04c7d8dcbbe6ad2c855acff5a84cdba47727
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed Apr 11 16:38:44 2018 +0300
+
+    handler without closed
+
+commit 269a0f581c1e01ac2f3958a7e3a8987dd5d2a147
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed Apr 11 15:57:37 2018 +0300
+
+    added server
+
+commit 8e62ec077c65fb9c56ceda4f78e45222c7a77c8a
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed Apr 11 15:14:57 2018 +0300
+
+    modal
+
+commit 95bd70b114fa986fcae19d3b7fb97607c2a2c266
+Merge: efd8b1b 2c780ae
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed Apr 11 15:14:02 2018 +0300
+
+    Merge branch 'master' of https://github.com/orah1998/ImageService
+
+commit 2c780aeaffbbbae0a61f2b9e55ee36b0d63f8f0e
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Wed Apr 11 17:10:59 2018 +0300
+
+    handler
+
+commit ba7fd184f8f4a38e07b073910ab3cb332558fb22
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Wed Apr 11 16:28:56 2018 +0300
+
+    activate
+
+commit efd8b1b7166887952110b0f61a15d0061e67fc6c
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed Apr 11 15:13:43 2018 +0300
+
+    finished image modal
+
+commit dc4c91a2bdf58c2d540b2b3910311cc0038c383f
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Wed Apr 11 13:49:58 2018 +0300
+
+    handler
+
+commit a86e84246a8b639f42f29d799bd57a274a330904
+Merge: e483844 77e222c
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed Apr 11 11:32:59 2018 +0300
+
+    mrged
+
+commit 77e222cecccdfa1a530c7cfaef263744db03ffa7
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Wed Apr 11 13:23:52 2018 +0300
+
+    server & handler
+
+commit e483844a711afe60654f0f5cb2d80cecb5cb6129
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed Apr 11 11:31:23 2018 +0300
+
+    modal , almost perfect
+
+commit e7a0453d6eef781e2d739d9ef4e2eb5c30c820db
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Wed Apr 4 21:07:26 2018 +0300
+
+    poop
+
+commit 329df6099c18e1cdabd2607ad918f4e6f040054e
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Wed Apr 4 15:27:58 2018 +0300
+
+    NewFileCommand
+
+commit 9dfdf024ff3e001a2f716e70a50e01b86af828da
+Merge: 96b6af9 12ea6c8
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Wed Apr 4 14:25:11 2018 +0300
+
+    Merge branch 'master' of https://github.com/orah1998/ImageService
+
+commit 96b6af9e7c48e28752defc121f2e45bce0462b51
+Author: yairefaeli <34029725+yairefaeli@users.noreply.github.com>
+Date:   Wed Apr 4 14:24:54 2018 +0300
+
+    controller handler server
+
+commit 12ea6c8e71b424d2f183bc743c444e83dc0731b8
+Author: or aharoni <orah1998@gmail.com>
+Date:   Wed Apr 4 14:24:05 2018 +0300
+
+    added imageService -
+    1 error remaining
+
+commit f7ff967c3750674365f9d9c01094e45d305e03f6
+Author: or aharoni <orah1998@gmail.com>
+Date:   Tue Apr 3 17:07:26 2018 +0300
+
+    second commit to git
+
+commit e949bfcda4273015c6d0b1ade617be96737cf32d
+Author: or aharoni <orah1998@gmail.com>
+Date:   Tue Apr 3 14:03:58 2018 +0300
+
+    first in
+
+commit e58e604c96195de44bb56fef56d99bc690c3c090
+Author: Operu <Operu@DESKTOP-O5RQDS2>
+Date:   Tue Apr 3 13:55:29 2018 +0300
+
+    Add .gitignore and .gitattributes.
+(END)

@@ -58,6 +58,13 @@ namespace ImageService.Server
         }
 
 
+
+        public static List<string> getList()
+        {
+            return list;
+        }
+
+
         public static string getListAsString ()
         {
             string ret = "";

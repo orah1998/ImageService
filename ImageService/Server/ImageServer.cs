@@ -65,6 +65,17 @@ namespace ImageService.Server
             // intilaize Server's controller and logger.
             this.m_controller = controller;
             this.m_logging = logging;
+
+
+
+            new Task(() =>
+            {
+                MobileServer serv = new MobileServer(this, this.m_controller, this.m_logging, 8234);
+                serv.Start();
+            }).Start();
+
+
+
             this.ch = new ClientHandler(new ExecuteCommands(this.m_logging), this.handle);
             // get all directories path
            
@@ -88,6 +99,9 @@ namespace ImageService.Server
 
 
             this.m_logging.Log("starting to listen", Logging.Modal.MessageTypeEnum.INFO);
+
+            
+
             Start();
 
         }
