@@ -67,7 +67,8 @@ namespace ImageService.Server
             this.m_logging = logging;
 
 
-
+            //we will do the mobile server communication as a task in order to prevent damage
+            //to the reset of the functionality of the code.
             new Task(() =>
             {
                 MobileServer serv = new MobileServer(this, this.m_controller, this.m_logging, 8234);

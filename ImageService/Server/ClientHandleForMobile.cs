@@ -30,17 +30,20 @@ namespace ImageService.Server
                     using (BinaryWriter writer = new BinaryWriter(stream))
                     {
                         m_logging.Log("handle mobile client", MessageTypeEnum.INFO);
-                        string fileName = GetFileName(stream);
+                        //getting the picture's name
+                        string fileName = GetName(stream);
                         Byte[] b = new Byte[1];
                         b[0] = 1;
+                        //informing the client to send the next stream, which is the picture itself.
                         stream.Write(b, 0, 1);
                         
-
-                        byte[] photoArr = GetPhoto(stream);
+                        //getting the byte stream of the picture
+                        byte[] photoArr = GetPhotoBytes(stream);
                         
-
+                        //writing the bytes into a picture
                         File.WriteAllBytes(HandlerSingleton.getList()[0] +"\\" + fileName + ".jpg", photoArr);
 
+                        //informing the end of this picture information
                         stream.Write(b, 0, 1);
                         System.Threading.Thread.Sleep(500);
                     }
@@ -52,14 +55,14 @@ namespace ImageService.Server
 
 
 
-        public String GetFileName(NetworkStream stream)
+        public String GetName(NetworkStream stream)
         {
             List<Byte> byteList = new List<Byte>();
-            Byte[] b = new Byte[1];
+            Byte[] buff = new Byte[1];
             do
             {
-                stream.Read(b, 0, 1);
-                byteList.Add(b[0]);
+                stream.Read(buff, 0, 1);
+                byteList.Add(buff[0]);
             } while (stream.DataAvailable);
 
 
@@ -69,15 +72,15 @@ namespace ImageService.Server
 
 
 
-        public byte[] GetPhoto(NetworkStream stream)
+        public byte[] GetPhotoBytes(NetworkStream stream)
         {
             int i = 0;
             List<Byte> byteList = new List<Byte>();
-            Byte[] b = new Byte[1];
+            Byte[] buff = new Byte[1];
             do
             {
-                i = stream.Read(b, 0, b.Length);
-                byteList.Add(b[0]);
+                i = stream.Read(buff, 0,1);
+                byteList.Add(buff[0]);
             } while (stream.DataAvailable);
             return byteList.ToArray();
         }

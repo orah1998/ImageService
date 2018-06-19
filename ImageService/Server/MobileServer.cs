@@ -21,7 +21,7 @@ namespace ImageService.Server
         private int m_port;
         private TcpListener m_listener;
         private IClientHandler m_ch;
-
+        //will be used to close the server using the "father" thread
         private bool closeCommunication;
 
         /// <summary>
@@ -48,12 +48,11 @@ namespace ImageService.Server
         /// </summary>
         public void Start()
         {
-            // set
             this.closeCommunication = false;
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), this.m_port);
             this.m_listener = new TcpListener(ep);
             this.m_listener.Start();
-            m_logging.Log("start mobile server", MessageTypeEnum.INFO);
+            m_logging.Log("starting to listen to mobile server", MessageTypeEnum.INFO);
 
 
 
@@ -62,7 +61,7 @@ namespace ImageService.Server
                 {
                     try
                     {
-                        // accept client
+                        // accept a new client connection
                         TcpClient client = this.m_listener.AcceptTcpClient();
                         this.m_ch.HandleClient(client);
                         m_logging.Log("start communication with mobile....", MessageTypeEnum.INFO);
@@ -78,7 +77,7 @@ namespace ImageService.Server
         }
 
         /// <summary>
-        /// close communication
+        /// closing the communication of the server from the "father" thread
         /// </summary>
         public void CloseCommunication()
         {
