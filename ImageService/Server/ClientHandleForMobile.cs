@@ -32,6 +32,11 @@ namespace ImageService.Server
                         m_logging.Log("handle mobile client", MessageTypeEnum.INFO);
                         //getting the picture's name
                         string fileName = GetName(stream);
+                        
+                        string sum = "";
+                        sum += fileName.Split('.')[1];
+                        sum = "." + sum;
+
                         Byte[] b = new Byte[1];
                         b[0] = 1;
                         //informing the client to send the next stream, which is the picture itself.
@@ -41,7 +46,8 @@ namespace ImageService.Server
                         byte[] photoArr = GetPhotoBytes(stream);
                         
                         //writing the bytes into a picture
-                        File.WriteAllBytes(HandlerSingleton.getList()[0] +"\\" + fileName + ".jpg", photoArr);
+
+                        File.WriteAllBytes(HandlerSingleton.getList()[0] +"\\" + fileName + sum, photoArr);
 
                         //informing the end of this picture information
                         stream.Write(b, 0, 1);
@@ -66,7 +72,7 @@ namespace ImageService.Server
             } while (stream.DataAvailable);
 
 
-            return Path.GetFileNameWithoutExtension(System.Text.Encoding.UTF8.GetString(byteList.ToArray()));
+            return Path.GetFileName(System.Text.Encoding.UTF8.GetString(byteList.ToArray()));
         }
 
 

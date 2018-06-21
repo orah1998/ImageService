@@ -108,10 +108,7 @@ namespace ImageService.Modal
                     using (Image thumbnail = image.GetThumbnailImage(this.m_thumbnailSize, this.m_thumbnailSize, () => false, IntPtr.Zero))
                     {
                         thumbnail.Save(destPathThumb);
-                        using (StreamWriter sw = File.AppendText(@"C: \Users\Operu\Desktop\testing\info.txt"))
-                        {
-                            sw.WriteLine(destPathThumb);
-                        }
+                       
                         image.Dispose();
                     }
                 

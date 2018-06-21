@@ -127,10 +127,6 @@ namespace ImageService.Server
                         {
                         
                         TcpClient client = listener.AcceptTcpClient();
-                        using (StreamWriter sw = File.AppendText(@"C: \Users\Operu\Desktop\testing\info.txt"))
-                        {
-                            sw.WriteLine("accepted");
-                        }
                         string toRemove = ch.HandleClient(client);
                     }
                         catch (SocketException)
